@@ -142,22 +142,23 @@ performance_data = pd.DataFrame({
         "Tuned Ridge + NCDEX"
     ],
     "MAE (₹)": [
-        487.38,
-        521.47,
-        509.96,
-        509.15
-    ],
-    "RMSE (₹)": [
-        829.07,
-        784.29,
-        769.19,
-        768.97
-    ],
-    "R²": [
-        0.7291,
-        0.7576,
-        0.7668,
-        0.7670
+    487.38,
+    521.61,
+    510.74,
+    509.90
+],
+"RMSE (₹)": [
+    829.07,
+    784.27,
+    769.02,
+    768.78
+],
+"R²": [
+    0.7291,
+    0.7576,
+    0.7669,
+    0.7671
+]
     ]
 })
 
@@ -172,19 +173,19 @@ metric_col1, metric_col2, metric_col3 = st.columns(3)
 with metric_col1:
     st.metric(
         "Final Model MAE",
-        "₹509.15"
+        "₹509.90"
     )
 
 with metric_col2:
     st.metric(
         "Final Model RMSE",
-        "₹768.97"
+        "₹768.78"
     )
 
 with metric_col3:
     st.metric(
         "Final Model R²",
-        "0.7670"
+        "0.7671"
     )
 
 st.caption(
