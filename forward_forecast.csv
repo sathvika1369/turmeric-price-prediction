@@ -1,0 +1,2 @@
+Latest_Observed_Date,Latest_Observed_Modal_Price,Forecast_Target,Naive_Baseline_Forecast,Ridge_NCDEX_Forecast,Forecast_Difference,Forecast_Difference_Pct,Ridge_Alpha,NCDEX_Latest_Date,NCDEX_Expiry,NCDEX_Close,NCDEX_Volume,NCDEX_Open_Interest
+2026-09-07,14650.0,Next observed Duggirala market-day modal price,14650.0,15086.244664189246,436.24466418924567,2.9777792777422913,1000.0,2026-09-01,2026-10-16,20018.0,4715.0,36225.0
