@@ -194,10 +194,10 @@ st.caption(
 
 
 # ---------------------------------------------------------
-# Forward forecast
+# Next market-day prediction
 # ---------------------------------------------------------
 
-st.write("### 🔮 Next Observed Market-Day Forecast")
+st.write("### 🔮 Next Market-Day Turmeric Price Prediction")
 
 FORECAST_PATH = os.path.join(
     BASE_DIR,
@@ -206,7 +206,6 @@ FORECAST_PATH = os.path.join(
 )
 
 forecast_df = pd.read_csv(FORECAST_PATH)
-
 forecast_row = forecast_df.iloc[0]
 
 latest_date = pd.to_datetime(
@@ -233,61 +232,79 @@ forecast_difference_pct = float(
     forecast_row["Forecast_Difference_Pct"]
 )
 
-forecast_col1, forecast_col2, forecast_col3 = st.columns(3)
+# Main prediction
+st.success(
+    f"🔮 Predicted Next Market-Day Turmeric Price: "
+    f"₹{ridge_forecast:,.2f}"
+)
 
-with forecast_col1:
+prediction_col1, prediction_col2, prediction_col3 = st.columns(3)
+
+with prediction_col1:
     st.metric(
         "Latest Observed Price",
         f"₹{latest_price:,.2f}",
         latest_date.strftime("%d %b %Y")
     )
 
-with forecast_col2:
+with prediction_col2:
     st.metric(
-        "Baseline Forecast",
-        f"₹{baseline_forecast:,.2f}"
+        "Predicted Next Market-Day Price",
+        f"₹{ridge_forecast:,.2f}",
+        f"{forecast_difference:+,.2f}"
     )
 
-with forecast_col3:
+with prediction_col3:
     st.metric(
-        "Ridge + NCDEX Forecast",
-        f"₹{ridge_forecast:,.2f}",
-        f"{forecast_difference:+,.2f} ({forecast_difference_pct:+.2f}%)"
+        "Expected Change",
+        f"{forecast_difference_pct:+.2f}%"
     )
 
 st.info(
-    "Forecast target: the next observed Duggirala APMC market-day "
-    "modal price. This is a model forecast, not a known future market price."
+    "📌 The prediction represents the estimated modal price for "
+    "the next observed Duggirala APMC market day after the latest "
+    "available observation. It is a model estimate, not a guaranteed "
+    "future market price."
 )
 
-st.write("#### NCDEX Information Used")
+st.write("#### 📊 Prediction Summary")
 
-ncdex_col1, ncdex_col2, ncdex_col3 = st.columns(3)
+summary_col1, summary_col2 = st.columns(2)
 
-with ncdex_col1:
-    st.metric(
-        "NCDEX Latest Close",
-        f"₹{float(forecast_row['NCDEX_Close']):,.0f}"
+with summary_col1:
+    st.write(
+        f"**Latest observed price:** ₹{latest_price:,.2f}"
+    )
+    st.write(
+        f"**Predicted next market-day price:** "
+        f"₹{ridge_forecast:,.2f}"
     )
 
-with ncdex_col2:
-    st.metric(
-        "NCDEX Volume",
-        f"{float(forecast_row['NCDEX_Volume']):,.0f}"
+with summary_col2:
+    st.write(
+        f"**Expected price change:** "
+        f"₹{forecast_difference:+,.2f}"
+    )
+    st.write(
+        f"**Expected percentage change:** "
+        f"{forecast_difference_pct:+.2f}%"
     )
 
-with ncdex_col3:
+st.write("#### 📈 Prediction Models")
+
+model_col1, model_col2 = st.columns(2)
+
+with model_col1:
     st.metric(
-        "NCDEX Open Interest",
-        f"{float(forecast_row['NCDEX_Open_Interest']):,.0f}"
+        "Naive Baseline Prediction",
+        f"₹{baseline_forecast:,.2f}"
     )
 
-st.caption(
-    f"Latest NCDEX observation: "
-    f"{pd.to_datetime(forecast_row['NCDEX_Latest_Date']).strftime('%d %b %Y')} "
-    f"| Expiry: "
-    f"{pd.to_datetime(forecast_row['NCDEX_Expiry']).strftime('%d %b %Y')}"
-)
+with model_col2:
+    st.metric(
+        "Ridge + NCDEX Prediction",
+        f"₹{ridge_forecast:,.2f}"
+    )
 
 
 # ---------------------------------------------------------
