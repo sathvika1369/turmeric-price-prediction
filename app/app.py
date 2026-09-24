@@ -159,7 +159,6 @@ performance_data = pd.DataFrame({
     0.7669,
     0.7671
 ]
-    ]
 })
 
 st.dataframe(
